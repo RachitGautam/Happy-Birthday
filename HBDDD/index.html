@@ -1,0 +1,2458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Roshni! 🎂</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.70.0/phaser.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* ✅ SEAMLESS CONTINUOUS SCROLLING BACKGROUND */
+        #background-reel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            gap: 15px;
+            padding: 15px 0;
+        }
+        
+        .reel-row {
+            display: flex;
+            gap: 15px;
+            animation: scrollLeft 45s linear infinite;
+            white-space: nowrap;
+            will-change: transform;
+        }
+        
+        .reel-row:nth-child(2) {
+            animation: scrollLeft 55s linear infinite;
+            animation-delay: -15s;
+        }
+        
+        .reel-row:nth-child(4) {
+            animation: scrollLeft 50s linear infinite;
+            animation-delay: -25s;
+        }
+        
+        .reel-row:nth-child(6) {
+            animation: scrollLeft 48s linear infinite;
+            animation-delay: -30s;
+        }
+        
+        .bg-image {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            opacity: 0.18;
+            border-radius: 12px;
+            flex-shrink: 0;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+            display: block;
+        }
+        
+        .bg-image.error {
+            display: none;
+        }
+        
+        /* ✅ SCROLLING TEXT BETWEEN ROWS */
+        .text-strip {
+            display: flex;
+            gap: 40px;
+            animation: scrollLeft 35s linear infinite;
+            white-space: nowrap;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.25);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .text-strip span {
+            display: inline-block;
+        }
+        
+        @keyframes scrollLeft {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-33.333%);
+            }
+        }
+        
+        #game-container {
+            box-shadow: 0 0 40px rgba(255, 182, 193, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+        }
+        
+        #gif-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            pointer-events: none;
+        }
+        
+        #celebration-gif {
+            max-width: 80%;
+            max-height: 80%;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- ✅ SEAMLESS CONTINUOUS SCROLLING BACKGROUND -->
+    <div id="background-reel">
+        <div class="reel-row">
+            <img class="bg-image" src="assets/images/bg_reel_1.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_2.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_3.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_4.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_5.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_6.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_7.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_8.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_9.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_10.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_1.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_2.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_3.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_4.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_5.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_6.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_7.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_8.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_9.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_10.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_1.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_2.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_3.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_4.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_5.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_6.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_7.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_8.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_9.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_10.jpg" alt="" onerror="this.classList.add('error')">
+        </div>
+        
+        <div class="text-strip">
+            <span>✨ HAPPY BIRTHDAY ROSHNI ✨</span>
+            <span>💖 WE LOVE YOU SO MUCH 💖</span>
+            <span>🌟 KEEP GROWING IN LIFE 🌟</span>
+            <span>🎉 ENJOY EVERY MOMENT 🎉</span>
+            <span>✨ HAPPY BIRTHDAY ROSHNI ✨</span>
+            <span>💖 WE LOVE YOU SO MUCH 💖</span>
+            <span>🌟 KEEP GROWING IN LIFE 🌟</span>
+            <span>🎉 ENJOY EVERY MOMENT 🎉</span>
+            <span>✨ HAPPY BIRTHDAY ROSHNI ✨</span>
+            <span>💖 WE LOVE YOU SO MUCH 💖</span>
+            <span>🌟 KEEP GROWING IN LIFE 🌟</span>
+            <span>🎉 ENJOY EVERY MOMENT 🎉</span>
+        </div>
+        
+        <div class="reel-row">
+            <img class="bg-image" src="assets/images/bg_reel_10.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_9.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_8.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_7.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_6.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_5.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_4.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_3.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_2.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_1.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_10.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_9.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_8.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_7.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_6.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_5.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_4.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_3.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_2.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_1.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_10.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_9.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_8.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_7.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_6.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_5.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_4.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_3.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_2.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_1.jpg" alt="" onerror="this.classList.add('error')">
+        </div>
+        
+        <div class="text-strip">
+            <span>🎂 BEST BIRTHDAY EVER 🎂</span>
+            <span>🌈 ALWAYS BE HAPPY 🌈</span>
+            <span>💫 SHINE BRIGHT LIKE A STAR 💫</span>
+            <span>🎁 YOU DESERVE THE BEST 🎁</span>
+            <span>🎂 BEST BIRTHDAY EVER 🎂</span>
+            <span>🌈 ALWAYS BE HAPPY 🌈</span>
+            <span>💫 SHINE BRIGHT LIKE A STAR 💫</span>
+            <span>🎁 YOU DESERVE THE BEST 🎁</span>
+            <span>🎂 BEST BIRTHDAY EVER 🎂</span>
+            <span>🌈 ALWAYS BE HAPPY 🌈</span>
+            <span>💫 SHINE BRIGHT LIKE A STAR 💫</span>
+            <span>🎁 YOU DESERVE THE BEST 🎁</span>
+        </div>
+        
+        <div class="reel-row">
+            <img class="bg-image" src="assets/images/bg_reel_2.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_5.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_1.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_4.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_3.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_6.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_7.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_8.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_9.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_10.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_2.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_5.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_1.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_4.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_3.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_6.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_7.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_8.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_9.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_10.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_2.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_5.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_1.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_4.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_3.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_6.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_7.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_8.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_9.jpg" alt="" onerror="this.classList.add('error')">
+            <img class="bg-image" src="assets/images/bg_reel_10.jpg" alt="" onerror="this.classList.add('error')">
+        </div>
+    </div>
+    
+    <div id="game-container"></div>
+    <div id="gif-overlay">
+        <img id="celebration-gif" src="" alt="celebration">
+    </div>
+    
+    <script>
+        window.addEventListener('load', function() {
+            
+            class StartScene extends Phaser.Scene {
+                constructor() {
+                    super({ key: 'StartScene' });
+                }
+
+                preload() {
+                    this.load.audio('correct', 'assets/audio/correct.mp3');
+                    this.load.audio('wrong', 'assets/audio/wrong.mp3');
+                    this.load.audio('bgMusic', 'assets/audio/background.mp3');
+                    this.load.audio('romanticMusic', 'assets/audio/romantic.mp3');
+                    this.load.audio('birthdaySong', 'assets/audio/happy_birthday.mp3');
+                    this.load.audio('victory', 'assets/audio/victory.mp3');
+                    this.load.audio('sukuna', 'assets/audio/sukuna.mp3');
+                    this.load.audio('sukunaShrine', 'assets/audio/sukuna_shrine.mp3');
+                    
+                    this.load.video('birthdayVideo', 'assets/video/birthday.mp4');
+                    
+                    this.load.image('sukunaImg', 'assets/images/sukuna.png');
+                    
+                    this.registry.set('gifPaths', {
+                        celebGif1: 'assets/gifs/celebrate1.gif',
+                        celebGif2: 'assets/gifs/celebrate2.gif',
+                        celebGif3: 'assets/gifs/celebrate3.gif',
+                        celebGif4: 'assets/gifs/celebrate4.gif',
+                        celebGif5: 'assets/gifs/celebrate5.gif',
+                        celebGif6: 'assets/gifs/celebrate6.gif',
+                        celebGif7: 'assets/gifs/celebrate7.gif',
+                        wrongGif: 'assets/gifs/wrong_funny.gif'
+                    });
+                    
+                    this.load.image('bgPattern1', 'assets/images/pattern1.png');
+                    this.load.image('cherryBg', 'assets/images/cherry_background.png');
+                    
+                    this.load.on('loaderror', (file) => {
+                        console.warn('File not found:', file.src);
+                    });
+                }
+
+                create() {
+                    const gradient = this.add.graphics();
+                    gradient.fillGradientStyle(0x87CEEB, 0x87CEEB, 0xFFB6C1, 0xFFB6C1, 1);
+                    gradient.fillRect(0, 0, 800, 600);
+
+                    this.createFloatingParticles();
+
+                    const titleBg = this.add.text(400, 180, '🎮 Birthday Quest 🎮', {
+                        fontSize: '48px',
+                        fill: '#ff69b4',
+                        fontStyle: 'bold',
+                        stroke: '#fff',
+                        strokeThickness: 6
+                    }).setOrigin(0.5).setAlpha(0);
+
+                    this.tweens.add({
+                        targets: titleBg,
+                        alpha: 1,
+                        y: 160,
+                        duration: 1500,
+                        ease: 'Elastic.easeOut'
+                    });
+
+                    const subtitle = this.add.text(400, 240, 'Answer riddles to unlock birthday wishes!', {
+                        fontSize: '22px',
+                        fill: '#fff',
+                        stroke: '#ff69b4',
+                        strokeThickness: 2
+                    }).setOrigin(0.5).setAlpha(0);
+
+                    this.tweens.add({
+                        targets: subtitle,
+                        alpha: 1,
+                        duration: 1500,
+                        delay: 500
+                    });
+
+                    const decorEmojis = ['🌸', '🌺', '💖', '✨', '🎀', '🎁', '🎊'];
+                    for (let i = 0; i < 18; i++) {
+                        const x = Phaser.Math.Between(50, 750);
+                        const y = Phaser.Math.Between(300, 560);
+                        const emoji = this.add.text(x, y, Phaser.Utils.Array.GetRandom(decorEmojis), {
+                            fontSize: '24px'
+                        }).setAlpha(0.4);
+
+                        this.tweens.add({
+                            targets: emoji,
+                            alpha: 0.8,
+                            y: y - 10,
+                            duration: 2000,
+                            yoyo: true,
+                            repeat: -1,
+                            delay: i * 100
+                        });
+                    }
+
+                    const buttonBg = this.add.rectangle(400, 450, 280, 75, 0xff69b4, 1).setInteractive();
+                    buttonBg.setStrokeStyle(4, 0xffffff);
+                    
+                    const instructions = this.add.text(400, 450, '🎯 Start Quest! 🎯', {
+                        fontSize: '28px',
+                        fill: '#ffffff',
+                        fontStyle: 'bold'
+                    }).setOrigin(0.5).setInteractive();
+
+                    this.tweens.add({
+                        targets: [buttonBg, instructions],
+                        scale: 1.05,
+                        duration: 600,
+                        yoyo: true,
+                        repeat: -1,
+                        ease: 'Sine.easeInOut'
+                    });
+
+                    buttonBg.on('pointerdown', () => this.startGame());
+                    instructions.on('pointerdown', () => this.startGame());
+
+                    buttonBg.on('pointerover', () => {
+                        this.tweens.add({
+                            targets: [buttonBg, instructions],
+                            scale: 1.15,
+                            duration: 200
+                        });
+                    });
+
+                    buttonBg.on('pointerout', () => {
+                        this.tweens.add({
+                            targets: [buttonBg, instructions],
+                            scale: 1,
+                            duration: 200
+                        });
+                    });
+
+                    try {
+                        if (this.cache.audio.exists('bgMusic')) {
+                            this.bgMusic = this.sound.add('bgMusic', { loop: true, volume: 0.3 });
+                            this.bgMusic.play();
+                            this.registry.set('bgMusic', this.bgMusic);
+                        }
+                    } catch(e) {
+                        console.warn('Background music could not play:', e);
+                    }
+                }
+
+                createFloatingParticles() {
+                    const particles = ['✨', '💫', '⭐', '🎈'];
+                    for (let i = 0; i < 25; i++) {
+                        this.time.delayedCall(i * 250, () => {
+                            const particle = this.add.text(
+                                Phaser.Math.Between(0, 800),
+                                Phaser.Math.Between(0, 600),
+                                Phaser.Utils.Array.GetRandom(particles),
+                                { fontSize: '20px' }
+                            ).setAlpha(0);
+
+                            this.tweens.add({
+                                targets: particle,
+                                alpha: 0.6,
+                                y: particle.y - 50,
+                                duration: 3000,
+                                yoyo: true,
+                                repeat: -1,
+                                ease: 'Sine.easeInOut'
+                            });
+                        });
+                    }
+                }
+
+                startGame() {
+                    this.cameras.main.fadeOut(1500, 0, 0, 0);
+                    
+                    const sparkle = this.add.text(400, 400, '✨', { 
+                        fontSize: '60px' 
+                    }).setOrigin(0.5).setAlpha(0).setDepth(1000);
+
+                    this.tweens.add({
+                        targets: sparkle,
+                        alpha: 1,
+                        scale: 1.5,
+                        duration: 1000,
+                        ease: 'Back.easeOut',
+                        onComplete: () => {
+                            this.time.delayedCall(500, () => {
+                                this.scene.start('MainGameScene');
+                            });
+                        }
+                    });
+                }
+            }
+
+            class MainGameScene extends Phaser.Scene {
+                constructor() {
+                    super({ key: 'MainGameScene' });
+                    this.flowersCreated = [];
+                    this.metCharacters = new Set();
+                    this.transitionStarted = false;
+                    this.quizActive = false;
+                    this.movementPaused = false;
+                    this.mapVisible = false;
+                }
+
+                create() {
+                    const WORLD_WIDTH = 5000;
+                    const WORLD_HEIGHT = 3500;
+
+                    this.friends = [
+                        { 
+                            name: "Jawaid", 
+                            message: "Happy Birthday Roshni! May your day be as wonderful as you are! and apne mods ko bhi paise dediya karo 🎉",
+                            question: "What gets bigger the more you take away from it?",
+                            options: ["A balloon", "A mountain", "A cake", "A hole"],
+                            correctAnswer: 3,
+                            celebGif: 'celebGif1',
+                            x: 800, y: 700, emoji: '😊', color: 0x4CAF50 
+                        },
+                        { 
+                            name: "Kamida", 
+                            message: "Be weirder. Have more fun. Evolve into your next form like a Pokémon! Happiest Birthday, Ninja AKA Roshnimon! May this year level you up with joy, laughter, and epic adventures. 🎂✨",
+                            question: "I have cities but no houses, forests but no trees, water but no fish. What am I?",
+                            options: ["A painting", "A map", "A dream", "A book"],
+                            correctAnswer: 1,
+                            celebGif: 'celebGif2',
+                            x: 4200, y: 1200, emoji: '😄', color: 0xFF9800 
+                        },
+                        { 
+                            name: "killua", 
+                            message: "Happy Birthday Roshni! May you continue to shine bright and inspire those around you. On your special day, remember that you are capable of achieving anything you set your mind to! 🌟",
+                            question: "What is the fastest way an anime character gets stronger?",
+                            options: ["Training for Years", "Eating Well", "Remembering a Sad flashback", "Reading Instruction Manuals"],
+                            correctAnswer: 2,
+                            celebGif: 'celebGif3',
+                            x: 2200, y: 3000, emoji: '😎', color: 0x2196F3 
+                        },
+                        { 
+                            name: "Nick", 
+                            message: "Happy Birthday Roshni! I wish this year brings you everything u hoped for. Thanks for being such a bitch to me even after so many years BC.💖",
+                            question: "What has hands but cannot clap?",
+                            options: ["A statue", "A robot", "A clock", "A mannequin"],
+                            correctAnswer: 2,
+                            celebGif: 'celebGif4',
+                            x: 1500, y: 2400, emoji: '🥰', color: 0xE91E63 
+                        },
+                        { 
+                            name: "Shield", 
+                            message: "Happy Birthday! Let's make this the best year yet! 🎊🎈",
+                            question: "What begins with T, ends with T, and has T in it?",
+                            options: ["A tent", "A teapot", "A toilet", "A tablet"],
+                            correctAnswer: 1,
+                            celebGif: 'celebGif5',
+                            x: 4500, y: 2900, emoji: '🤩', color: 0xF44336 
+                        },
+                        { 
+                            name: "Tarun Bhaiya", 
+                            message: "Wishing you an incredible birthday filled with love and laughter Chhoti! 🎁",
+                            question: "The more of this there is, the less you see. What is it?",
+                            options: ["Fog", "Darkness", "Smoke", "Clouds"],
+                            correctAnswer: 1,
+                            celebGif: 'celebGif6',
+                            x: 3200, y: 1800, emoji: '😁', color: 0x9C27B0 
+                        },
+                        { 
+                            name: "Didi", 
+                            message: "Happy Birthday my dear Roshni! Love you so much! ❤️👑",
+                            question: "What belongs to you but other people use it more than you?",
+                            options: ["Your name", "Your advice", "Your time", "Your phone"],
+                            correctAnswer: 0,
+                            celebGif: 'celebGif7',
+                            x: 2800, y: 900, emoji: '👩', color: 0xFF69B4 
+                        }
+                    ];
+
+                    this.physics.world.setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+
+                    const bgGraphics = this.add.graphics();
+                    bgGraphics.fillGradientStyle(0xE8F5E9, 0xE8F5E9, 0xC8E6C9, 0xC8E6C9, 1);
+                    bgGraphics.fillRect(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+
+                    if (this.textures.exists('bgPattern1')) {
+                        const bgPattern = this.add.tileSprite(0, 0, WORLD_WIDTH, WORLD_HEIGHT, 'bgPattern1');
+                        bgPattern.setOrigin(0, 0);
+                        bgPattern.setAlpha(0.15);
+                        bgPattern.setDepth(-1);
+                    }
+
+                    for (let i = 0; i < 1200; i++) {
+                        const x = Phaser.Math.Between(50, WORLD_WIDTH - 50);
+                        const y = Phaser.Math.Between(100, WORLD_HEIGHT - 50);
+                        const grassTypes = ['🌾', '🌿', '🍃'];
+                        const grass = this.add.text(x, y, Phaser.Utils.Array.GetRandom(grassTypes), { 
+                            fontSize: Phaser.Math.Between(14, 20) + 'px'
+                        }).setOrigin(0.5);
+                        grass.setAlpha(0.3);
+                        
+                        this.tweens.add({
+                            targets: grass,
+                            angle: Phaser.Math.Between(-5, 5),
+                            duration: Phaser.Math.Between(2000, 4000),
+                            yoyo: true,
+                            repeat: -1,
+                            ease: 'Sine.easeInOut'
+                        });
+                    }
+
+                    const treeClusters = [
+                        {x: 450, y: 900}, {x: 950, y: 700}, {x: 1650, y: 1400},
+                        {x: 2350, y: 1600}, {x: 1150, y: 2000}, {x: 2050, y: 500},
+                        {x: 650, y: 1900}, {x: 1950, y: 1800}, {x: 2550, y: 1000},
+                        {x: 3200, y: 800}, {x: 3800, y: 1400}, {x: 4200, y: 2200},
+                        {x: 4600, y: 3100}, {x: 3400, y: 2800}, {x: 2200, y: 2400},
+                        {x: 800, y: 2800}, {x: 1400, y: 3200}, {x: 3800, y: 600}
+                    ];
+                    
+                    treeClusters.forEach((pos, index) => {
+                        const trees = ['🌳', '🌲', '🌴'];
+                        const tree = this.add.text(pos.x, pos.y, Phaser.Utils.Array.GetRandom(trees), { 
+                            fontSize: '56px',
+                            padding: { top: 20, bottom: 20, left: 10, right: 10 }
+                        }).setOrigin(0.5, 0.7);
+                        
+                        this.tweens.add({
+                            targets: tree,
+                            scaleX: 0.98,
+                            duration: 3000,
+                            yoyo: true,
+                            repeat: -1,
+                            delay: index * 200,
+                            ease: 'Sine.easeInOut'
+                        });
+
+                        for (let i = 0; i < 5; i++) {
+                            const flowerX = pos.x + Phaser.Math.Between(-40, 40);
+                            const flowerY = pos.y + Phaser.Math.Between(30, 60);
+                            const flowers = ['🌸', '🌺', '🌼', '🌻', '🌷', '🌹'];
+                            this.add.text(flowerX, flowerY, Phaser.Utils.Array.GetRandom(flowers), {
+                                fontSize: '24px',
+                                padding: { top: 10, bottom: 10, left: 5, right: 5 }
+                            }).setAlpha(0.7).setOrigin(0.5);
+                        }
+                    });
+
+                    const butterflies = ['🦋', '🦋', '🦋', '🦋', '🦋', '🦋', '🦋', '🦋'];
+                    butterflies.forEach((b, i) => {
+                        const butterfly = this.add.text(
+                            Phaser.Math.Between(150, WORLD_WIDTH - 150),
+                            Phaser.Math.Between(150, WORLD_HEIGHT - 150),
+                            b,
+                            { 
+                                fontSize: '32px',
+                                padding: { top: 15, bottom: 15, left: 10, right: 10 }
+                            }
+                        ).setOrigin(0.5);
+
+                        this.tweens.add({
+                            targets: butterfly,
+                            x: butterfly.x + Phaser.Math.Between(-200, 200),
+                            y: butterfly.y + Phaser.Math.Between(-200, 200),
+                            duration: 5000,
+                            yoyo: true,
+                            repeat: -1,
+                            ease: 'Sine.easeInOut',
+                            delay: i * 1000
+                        });
+                    });
+
+                    this.createInteractiveSignposts();
+
+                    this.player = this.add.circle(WORLD_WIDTH/2, WORLD_HEIGHT/2, 22, 0xff69b4);
+                    this.player.setStrokeStyle(3, 0xffffff);
+                    
+                    this.playerGlow = this.add.circle(WORLD_WIDTH/2, WORLD_HEIGHT/2, 28, 0xff69b4, 0.3);
+                    this.tweens.add({
+                        targets: this.playerGlow,
+                        alpha: 0.6,
+                        scale: 1.1,
+                        duration: 800,
+                        yoyo: true,
+                        repeat: -1
+                    });
+
+                    this.playerLabel = this.add.text(WORLD_WIDTH/2, WORLD_HEIGHT/2 - 45, 'Roshni', {
+                        fontSize: '18px',
+                        fill: '#000',
+                        backgroundColor: '#fff',
+                        padding: { x: 8, y: 4 },
+                        stroke: '#ff69b4',
+                        strokeThickness: 2
+                    }).setOrigin(0.5);
+
+                    this.physics.add.existing(this.player);
+                    this.player.body.setCollideWorldBounds(true);
+
+                    this.cameras.main.setBounds(0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+                    this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
+                    this.cameras.main.setZoom(1);
+
+                    this.npcs = [];
+                    this.npcSprites = [];
+                    
+                    this.friends.forEach((friend, index) => {
+                        const glowRing = this.add.circle(friend.x, friend.y, 35, friend.color, 0.15);
+                        this.tweens.add({
+                            targets: glowRing,
+                            scale: 1.3,
+                            alpha: 0.3,
+                            duration: 1500,
+                            yoyo: true,
+                            repeat: -1,
+                            delay: index * 200
+                        });
+
+                        const glowCircle = this.add.circle(friend.x, friend.y, 28, 0xffffff, 0.2);
+                        this.tweens.add({
+                            targets: glowCircle,
+                            alpha: 0.5,
+                            scale: 1.15,
+                            duration: 1000,
+                            yoyo: true,
+                            repeat: -1,
+                            delay: index * 200
+                        });
+
+                        const npc = this.add.circle(friend.x, friend.y, 20, friend.color);
+                        npc.setStrokeStyle(3, 0xffffff);
+                        npc.friendData = friend;
+                        npc.met = false;
+
+                        const questionMark = this.add.text(friend.x, friend.y - 50, '❓', {
+                            fontSize: '32px',
+                            padding: { top: 12, bottom: 12, left: 10, right: 10 }
+                        }).setOrigin(0.5);
+
+                        this.npcSprites.push({ npc, glowRing, glowCircle, questionMark, friend });
+                        this.npcs.push(npc);
+
+                        this.tweens.add({
+                            targets: [npc, questionMark],
+                            y: friend.y - 5,
+                            duration: 1500,
+                            yoyo: true,
+                            repeat: -1,
+                            ease: 'Sine.easeInOut',
+                            delay: index * 150
+                        });
+
+                        this.time.addEvent({
+                            delay: 2000,
+                            callback: () => {
+                                if (!npc.met) {
+                                    const sparkle = this.add.text(
+                                        friend.x + Phaser.Math.Between(-30, 30),
+                                        friend.y - 40,
+                                        '✨',
+                                        { 
+                                            fontSize: '20px',
+                                            padding: { top: 10, bottom: 10, left: 5, right: 5 }
+                                        }
+                                    ).setOrigin(0.5);
+                                    this.tweens.add({
+                                        targets: sparkle,
+                                        y: friend.y - 60,
+                                        alpha: 0,
+                                        duration: 1500,
+                                        onComplete: () => sparkle.destroy()
+                                    });
+                                }
+                            },
+                            loop: true
+                        });
+                    });
+
+                    const uiBg = this.add.rectangle(400, 35, 800, 70, 0x000000, 0.6).setScrollFactor(0).setDepth(10);
+
+                    this.instructionText = this.add.text(400, 25, '🎯 Find 7 Friends & Answer Riddles! Use WASD | Press E near 🪧 🎯', {
+                        fontSize: '14px',
+                        fill: '#fff',
+                        fontStyle: 'bold',
+                        stroke: '#000',
+                        strokeThickness: 2
+                    }).setOrigin(0.5).setScrollFactor(0).setDepth(11);
+
+                    this.counterText = this.add.text(750, 50, `Solved: 0/7 🧩`, {
+                        fontSize: '20px',
+                        fill: '#fff',
+                        fontStyle: 'bold',
+                        backgroundColor: '#ff69b4',
+                        padding: { x: 12, y: 6 },
+                        stroke: '#000',
+                        strokeThickness: 2
+                    }).setOrigin(1, 0.5).setScrollFactor(0).setDepth(11);
+
+                    this.createMiniMap(WORLD_WIDTH, WORLD_HEIGHT);
+
+                    this.cursors = this.input.keyboard.createCursorKeys();
+                    this.keys = this.input.keyboard.addKeys('W,A,S,D,SPACE,E,M');
+
+                    this.cameras.main.fadeIn(1500, 0, 0, 0);
+                }
+
+                createMiniMap(worldWidth, worldHeight) {
+                    const mapSize = 150;
+                    const mapX = 50;
+                    const mapY = 600 - mapSize - 50;
+
+                    this.miniMapBg = this.add.rectangle(mapX, mapY, mapSize, mapSize, 0x1a1a1a, 0.85)
+                        .setScrollFactor(0).setDepth(20).setOrigin(0, 0);
+                    this.miniMapBg.setStrokeStyle(3, 0xffffff);
+                    this.miniMapBg.setVisible(false);
+
+                    this.miniMapTitle = this.add.text(mapX + mapSize/2, mapY - 12, '🗺️ MAP', {
+                        fontSize: '14px',
+                        fill: '#fff',
+                        fontStyle: 'bold',
+                        backgroundColor: '#000',
+                        padding: { x: 6, y: 3 }
+                    }).setOrigin(0.5, 0).setScrollFactor(0).setDepth(21);
+                    this.miniMapTitle.setVisible(false);
+
+                    this.miniMapGraphics = this.add.graphics().setScrollFactor(0).setDepth(21);
+                    
+                    this.miniMapData = {
+                        x: mapX,
+                        y: mapY,
+                        size: mapSize,
+                        worldWidth: worldWidth,
+                        worldHeight: worldHeight,
+                        scaleX: mapSize / worldWidth,
+                        scaleY: mapSize / worldHeight
+                    };
+
+                    this.miniMapFriendDots = [];
+                    this.friends.forEach((friend) => {
+                        const dotX = mapX + (friend.x * this.miniMapData.scaleX);
+                        const dotY = mapY + (friend.y * this.miniMapData.scaleY);
+                        
+                        const dot = this.add.circle(dotX, dotY, 4, 0xffeb3b)
+                            .setScrollFactor(0).setDepth(22);
+                        dot.setVisible(false);
+                        
+                        this.miniMapFriendDots.push({ dot, friend });
+                    });
+
+                    this.miniMapPlayer = this.add.circle(0, 0, 5, 0xff69b4)
+                        .setScrollFactor(0).setDepth(23);
+                    this.miniMapPlayer.setStrokeStyle(2, 0xffffff);
+                    this.miniMapPlayer.setVisible(false);
+                }
+
+                toggleMap() {
+                    this.mapVisible = !this.mapVisible;
+                    
+                    this.miniMapBg.setVisible(this.mapVisible);
+                    this.miniMapTitle.setVisible(this.mapVisible);
+                    this.miniMapPlayer.setVisible(this.mapVisible);
+                    
+                    this.miniMapFriendDots.forEach(({ dot }) => {
+                        dot.setVisible(this.mapVisible);
+                    });
+                }
+
+                updateMiniMap() {
+                    if (!this.miniMapData || !this.mapVisible) return;
+
+                    const playerMapX = this.miniMapData.x + (this.player.x * this.miniMapData.scaleX);
+                    const playerMapY = this.miniMapData.y + (this.player.y * this.miniMapData.scaleY);
+                    this.miniMapPlayer.setPosition(playerMapX, playerMapY);
+
+                    this.miniMapFriendDots.forEach(({ dot, friend }) => {
+                        const isSolved = this.metCharacters.has(friend.name);
+                        dot.setFillStyle(isSolved ? 0x00ff00 : 0xffeb3b);
+                        dot.setAlpha(isSolved ? 0.5 : 1);
+                    });
+                }
+
+                createInteractiveSignposts() {
+                    const signpostPositions = [
+                        {x: 2500, y: 1750}, {x: 1200, y: 800}, {x: 3800, y: 2400},
+                        {x: 4000, y: 1000}, {x: 1800, y: 2800}, {x: 3000, y: 500},
+                        {x: 600, y: 1200}
+                    ];
+
+                    this.signposts = [];
+
+                    signpostPositions.forEach((pos, index) => {
+                        const randomFriend = this.friends[index % this.friends.length];
+                        
+                        const signpost = this.add.text(pos.x, pos.y, '🪧', {
+                            fontSize: '48px',
+                            padding: { top: 15, bottom: 15, left: 15, right: 15 }
+                        }).setOrigin(0.5);
+                        
+                        signpost.friendData = randomFriend;
+                        
+                        this.tweens.add({
+                            targets: signpost,
+                            y: pos.y - 10,
+                            duration: 2000,
+                            yoyo: true,
+                            repeat: -1,
+                            ease: 'Sine.easeInOut',
+                            delay: index * 300
+                        });
+                        
+                        this.signposts.push(signpost);
+                    });
+                }
+
+                update() {
+                    if (this.movementPaused || this.quizActive) {
+                        this.player.body.setVelocity(0);
+                        return;
+                    }
+
+                    if (Phaser.Input.Keyboard.JustDown(this.keys.M)) {
+                        this.toggleMap();
+                    }
+
+                    const speed = 280;
+                    this.player.body.setVelocity(0);
+
+                    let moving = false;
+
+                    if (this.cursors.left.isDown || this.keys.A.isDown) {
+                        this.player.body.setVelocityX(-speed);
+                        moving = true;
+                    } else if (this.cursors.right.isDown || this.keys.D.isDown) {
+                        this.player.body.setVelocityX(speed);
+                        moving = true;
+                    }
+
+                    if (this.cursors.up.isDown || this.keys.W.isDown) {
+                        this.player.body.setVelocityY(-speed);
+                        moving = true;
+                    } else if (this.cursors.down.isDown || this.keys.S.isDown) {
+                        this.player.body.setVelocityY(speed);
+                        moving = true;
+                    }
+
+                    this.playerLabel.setPosition(this.player.x, this.player.y - 45);
+                    this.playerGlow.setPosition(this.player.x, this.player.y);
+
+                    this.updateMiniMap();
+
+                    if (moving && Math.random() > 0.65) {
+                        this.createEnhancedFlower(this.player.x, this.player.y);
+                    }
+
+                    this.signposts.forEach(signpost => {
+                        const distance = Phaser.Math.Distance.Between(
+                            this.player.x, this.player.y,
+                            signpost.x, signpost.y
+                        );
+
+                        if (distance < 80 && Phaser.Input.Keyboard.JustDown(this.keys.E)) {
+                            this.showSignpostInfo(signpost);
+                        }
+                    });
+
+                    this.npcSprites.forEach(npcData => {
+                        const distance = Phaser.Math.Distance.Between(
+                            this.player.x, this.player.y,
+                            npcData.friend.x, npcData.friend.y
+                        );
+
+                        if (distance < 80 && !npcData.npc.met) {
+                            this.showQuiz(npcData);
+                        }
+                    });
+
+                    this.counterText.setText(`Solved: ${this.metCharacters.size}/7 🧩`);
+
+                    if (this.metCharacters.size === 7 && !this.transitionStarted) {
+                        this.transitionStarted = true;
+                        this.time.delayedCall(1500, () => {
+                            this.instructionText.setText('🎊 All Riddles Solved! Something Special Awaits! 🎊');
+                            this.createVictoryEffect();
+                            
+                            try {
+                                if (this.cache.audio.exists('victory')) {
+                                    this.sound.play('victory', { volume: 0.5 });
+                                }
+                            } catch(e) {
+                                console.warn('Victory sound error:', e);
+                            }
+                            
+                            this.cameras.main.fade(2500, 0, 0, 0);
+                            this.time.delayedCall(2500, () => {
+                                this.scene.start('CherryBlossomScene');
+                            });
+                        });
+                    }
+                }
+
+                showSignpostInfo(signpost) {
+                    this.movementPaused = true;
+                    
+                    const friend = signpost.friendData;
+                    
+                    const dirX = friend.x > signpost.x ? 'East →' : 'West ←';
+                    const dirY = friend.y > signpost.y ? 'South ↓' : 'North ↑';
+                    
+                    const msgBox = this.add.rectangle(400, 300, 600, 200, 0x8B4513, 0.95)
+                        .setScrollFactor(0).setDepth(150);
+                    msgBox.setStrokeStyle(5, 0xffffff);
+
+                    const titleText = this.add.text(400, 240, '🪧 Signpost 🪧', {
+                        fontSize: '28px',
+                        fill: '#ffeb3b',
+                        fontStyle: 'bold',
+                        stroke: '#000',
+                        strokeThickness: 3
+                    }).setOrigin(0.5).setScrollFactor(0).setDepth(151);
+
+                    const infoText = this.add.text(400, 300, `A Friend is Nearby!\n\nDirection: ${dirX}, ${dirY}`, {
+                        fontSize: '20px',
+                        fill: '#fff',
+                        fontStyle: 'bold',
+                        align: 'center',
+                        lineSpacing: 10
+                    }).setOrigin(0.5).setScrollFactor(0).setDepth(151);
+
+                    const continueBtn = this.add.text(400, 370, '[Press SPACE to continue]', {
+                        fontSize: '16px',
+                        fill: '#ffeb3b',
+                        fontStyle: 'bold'
+                    }).setOrigin(0.5).setScrollFactor(0).setDepth(151);
+
+                    this.tweens.add({
+                        targets: continueBtn,
+                        alpha: 0.5,
+                        duration: 600,
+                        yoyo: true,
+                        repeat: -1
+                    });
+
+                    const spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+                    const spaceHandler = () => {
+                        msgBox.destroy();
+                        titleText.destroy();
+                        infoText.destroy();
+                        continueBtn.destroy();
+                        this.movementPaused = false;
+                        spaceKey.off('down', spaceHandler);
+                    };
+                    spaceKey.on('down', spaceHandler);
+                }
+
+                showQuiz(npcData) {
+                    this.quizActive = true;
+                    this.movementPaused = true;
+                    const friend = npcData.friend;
+
+                    const overlay = this.add.rectangle(
+                        this.cameras.main.worldView.centerX,
+                        this.cameras.main.worldView.centerY,
+                        800, 600, 0x000000, 0.85
+                    ).setScrollFactor(0).setDepth(100);
+
+                    const quizBox = this.add.rectangle(
+                        400, 300,
+                        700, 500, 0x1a1a2e, 1
+                    ).setScrollFactor(0).setDepth(101);
+                    quizBox.setStrokeStyle(5, friend.color);
+
+                    const portrait = this.add.text(
+                        400, 120,
+                        friend.emoji,
+                        { fontSize: '70px', padding: { top: 20, bottom: 20, left: 15, right: 15 } }
+                    ).setOrigin(0.5).setScrollFactor(0).setDepth(102);
+
+                    const nameText = this.add.text(
+                        400, 190,
+                        friend.name + "'s Challenge! 🎯",
+                        { fontSize: '28px', fill: '#ffeb3b', fontStyle: 'bold', stroke: '#000', strokeThickness: 4 }
+                    ).setOrigin(0.5).setScrollFactor(0).setDepth(102);
+
+                    const questionText = this.add.text(
+                        400, 250,
+                        friend.question,
+                        { 
+                            fontSize: '20px', 
+                            fill: '#fff', 
+                            fontStyle: 'bold',
+                            wordWrap: { width: 650 },
+                            align: 'center'
+                        }
+                    ).setOrigin(0.5).setScrollFactor(0).setDepth(102);
+
+                    const optionButtons = [];
+                    const optionColors = [0x4CAF50, 0x2196F3, 0xFF9800, 0xE91E63];
+                    
+                    const uiElements = [overlay, quizBox, portrait, nameText, questionText];
+                    
+                    friend.options.forEach((option, index) => {
+                        const yPos = 330 + (index * 60);
+                        
+                        const optionBg = this.add.rectangle(
+                            400, yPos,
+                            620, 50, optionColors[index], 1
+                        ).setScrollFactor(0).setInteractive().setDepth(101);
+                        optionBg.setStrokeStyle(3, 0xffffff);
+
+                        const optionText = this.add.text(
+                            400, yPos,
+                            `${String.fromCharCode(65 + index)}. ${option}`,
+                            { fontSize: '18px', fill: '#fff', fontStyle: 'bold' }
+                        ).setOrigin(0.5).setScrollFactor(0).setDepth(102);
+
+                        optionBg.on('pointerover', () => {
+                            this.tweens.add({
+                                targets: optionBg,
+                                scaleX: 1.05,
+                                scaleY: 1.1,
+                                duration: 200
+                            });
+                        });
+
+                        optionBg.on('pointerout', () => {
+                            this.tweens.add({
+                                targets: optionBg,
+                                scaleX: 1,
+                                scaleY: 1,
+                                duration: 200
+                            });
+                        });
+
+                        optionBg.on('pointerdown', () => {
+                            this.checkAnswer(index, friend.correctAnswer, friend, npcData, [...uiElements, ...optionButtons.flat()]);
+                        });
+
+                        optionButtons.push([optionBg, optionText]);
+                        uiElements.push(optionBg, optionText);
+                    });
+                }
+
+                checkAnswer(selectedIndex, correctIndex, friend, npcData, uiElements) {
+                    const isCorrect = selectedIndex === correctIndex;
+
+                    if (isCorrect) {
+                        try {
+                            if (this.cache.audio.exists('correct')) {
+                                this.sound.play('correct', { volume: 0.6 });
+                            }
+                        } catch(e) {
+                            console.warn('Correct sound error:', e);
+                        }
+
+                        this.showCelebrationGif(friend.celebGif);
+
+                        const successMsg = this.add.text(
+                            400, 520,
+                            '🎉 Correct! Awesome! 🎉',
+                            { fontSize: '28px', fill: '#00ff00', fontStyle: 'bold', stroke: '#000', strokeThickness: 4 }
+                        ).setOrigin(0.5).setScrollFactor(0).setDepth(103).setAlpha(0);
+
+                        this.tweens.add({
+                            targets: successMsg,
+                            alpha: 1,
+                            scale: 1.2,
+                            duration: 500,
+                            ease: 'Bounce.easeOut'
+                        });
+
+                        npcData.npc.met = true;
+                        npcData.questionMark.destroy();
+                        this.metCharacters.add(friend.name);
+
+                        this.time.delayedCall(1800, () => {
+                            uiElements.push(successMsg);
+                            uiElements.forEach(el => el.destroy());
+                            this.quizActive = false;
+                            this.movementPaused = false;
+
+                            this.showMessage(friend.message, friend.name);
+                        });
+
+                    } else {
+                        try {
+                            if (this.cache.audio.exists('wrong')) {
+                                this.sound.play('wrong', { volume: 0.6 });
+                            }
+                        } catch(e) {
+                            console.warn('Wrong sound error:', e);
+                        }
+
+                        this.showCelebrationGif('wrongGif');
+
+                        const wrongMsg = this.add.text(
+                            400, 520,
+                            '❌ Oops! Try again! ❌',
+                            { fontSize: '28px', fill: '#ff0000', fontStyle: 'bold', stroke: '#000', strokeThickness: 4 }
+                        ).setOrigin(0.5).setScrollFactor(0).setDepth(103).setAlpha(0);
+
+                        this.tweens.add({
+                            targets: wrongMsg,
+                            alpha: 1,
+                            scale: 1.2,
+                            duration: 500,
+                            yoyo: true,
+                            ease: 'Bounce.easeOut',
+                            onComplete: () => {
+                                this.cameras.main.shake(300, 0.01);
+                                
+                                this.time.delayedCall(1500, () => {
+                                    uiElements.push(wrongMsg);
+                                    uiElements.forEach(el => el.destroy());
+                                    this.quizActive = false;
+                                    this.movementPaused = false;
+                                });
+                            }
+                        });
+                    }
+                }
+
+                showCelebrationGif(gifKey) {
+                    const gifOverlay = document.getElementById('gif-overlay');
+                    const gifImg = document.getElementById('celebration-gif');
+
+                    const gifPaths = this.registry.get('gifPaths');
+                    const gifPath = gifPaths[gifKey];
+                    
+                    gifImg.src = '';
+                    setTimeout(() => {
+                        gifImg.src = gifPath + '?t=' + Date.now();
+                        gifOverlay.style.display = 'flex';
+                        
+                        setTimeout(() => {
+                            gifImg.style.opacity = '1';
+                        }, 50);
+
+                        setTimeout(() => {
+                            gifImg.style.opacity = '0';
+                            setTimeout(() => {
+                                gifOverlay.style.display = 'none';
+                                gifImg.src = '';
+                            }, 300);
+                        }, 1000);
+                    }, 10);
+                }
+
+                showMessage(message, friendName) {
+                    this.movementPaused = true;
+                    
+                    const msgBox = this.add.rectangle(400, 300, 700, 250, 0xff69b4, 0.95)
+                        .setScrollFactor(0).setDepth(100);
+                    msgBox.setStrokeStyle(4, 0xffffff);
+
+                    const titleText = this.add.text(400, 220, `${friendName}'s Wish 🎉`, {
+                        fontSize: '24px',
+                        fill: '#ffeb3b',
+                        fontStyle: 'bold',
+                        stroke: '#000',
+                        strokeThickness: 3
+                    }).setOrigin(0.5).setScrollFactor(0).setDepth(101);
+
+                    const msgText = this.add.text(400, 300, message, {
+                        fontSize: '18px',
+                        fill: '#fff',
+                        fontStyle: 'bold',
+                        wordWrap: { width: 650 },
+                        align: 'center'
+                    }).setOrigin(0.5).setScrollFactor(0).setDepth(101);
+
+                    const continueBtn = this.add.text(400, 380, '[Press SPACE to continue]', {
+                        fontSize: '16px',
+                        fill: '#ffeb3b',
+                        fontStyle: 'bold'
+                    }).setOrigin(0.5).setScrollFactor(0).setDepth(101);
+
+                    this.tweens.add({
+                        targets: continueBtn,
+                        alpha: 0.5,
+                        duration: 600,
+                        yoyo: true,
+                        repeat: -1
+                    });
+
+                    const spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+                    const spaceHandler = () => {
+                        msgBox.destroy();
+                        titleText.destroy();
+                        msgText.destroy();
+                        continueBtn.destroy();
+                        this.movementPaused = false;
+                        spaceKey.off('down', spaceHandler);
+                    };
+                    spaceKey.on('down', spaceHandler);
+                }
+
+                createEnhancedFlower(x, y) {
+                    const flowers = ['🌸', '🌺', '🌼', '🌻', '🌷', '🌹', '💐'];
+                    const flower = this.add.text(x, y, Phaser.Utils.Array.GetRandom(flowers), {
+                        fontSize: '22px',
+                        padding: { top: 10, bottom: 10, left: 5, right: 5 }
+                    }).setAlpha(0).setOrigin(0.5);
+
+                    this.tweens.add({
+                        targets: flower,
+                        alpha: 1,
+                        scale: 1.3,
+                        duration: 600,
+                        ease: 'Back.easeOut',
+                        onComplete: () => {
+                            this.tweens.add({
+                                targets: flower,
+                                alpha: 0,
+                                y: flower.y - 10,
+                                duration: 1500,
+                                delay: 1500,
+                                onComplete: () => flower.destroy()
+                            });
+                        }
+                    });
+                }
+
+                createVictoryEffect() {
+                    for (let i = 0; i < 40; i++) {
+                        this.time.delayedCall(i * 80, () => {
+                            const firework = this.add.text(
+                                this.player.x + Phaser.Math.Between(-250, 250),
+                                this.player.y + Phaser.Math.Between(-250, 250),
+                                Phaser.Utils.Array.GetRandom(['🎆', '🎇', '✨', '💫', '🌟']),
+                                { 
+                                    fontSize: '40px',
+                                    padding: { top: 15, bottom: 15, left: 12, right: 12 }
+                                }
+                            ).setOrigin(0.5);
+                            this.tweens.add({
+                                targets: firework,
+                                scale: 2,
+                                alpha: 0,
+                                rotation: Phaser.Math.Between(-2, 2),
+                                duration: 1200,
+                                onComplete: () => firework.destroy()
+                            });
+                        });
+                    }
+                }
+            }
+
+            class CherryBlossomScene extends Phaser.Scene {
+                constructor() {
+                    super({ key: 'CherryBlossomScene' });
+                }
+
+                create() {
+                    const bgMusic = this.registry.get('bgMusic');
+                    if (bgMusic) {
+                        bgMusic.stop();
+                    }
+
+                    try {
+                        if (this.cache.audio.exists('romanticMusic')) {
+                            this.romanticMusic = this.sound.add('romanticMusic', { loop: true, volume: 0.4 });
+                            this.romanticMusic.play();
+                            this.registry.set('romanticMusic', this.romanticMusic);
+                        }
+                    } catch(e) {
+                        console.warn('Romantic music error:', e);
+                    }
+
+                    const gradient = this.add.graphics();
+                    gradient.fillGradientStyle(0xFFE5EC, 0xFFE5EC, 0xFFB6C1, 0xFFB6C1, 1);
+                    gradient.fillRect(0, 0, 800, 600);
+
+                    if (this.textures.exists('cherryBg')) {
+                        const cherryBg = this.add.image(400, 300, 'cherryBg');
+                        cherryBg.setAlpha(0.2);
+                        cherryBg.setDepth(-1);
+                    }
+
+                    const trunk = this.add.rectangle(600, 400, 45, 160, 0x8b4513);
+                    const foliage1 = this.add.circle(600, 320, 90, 0xffb7c5);
+                    const foliage2 = this.add.circle(570, 300, 70, 0xffc0cb);
+                    const foliage3 = this.add.circle(630, 310, 75, 0xffb7c5);
+                    const foliage4 = this.add.circle(600, 290, 55, 0xffd0db);
+
+                    [trunk, foliage1, foliage2, foliage3, foliage4].forEach(part => {
+                        this.tweens.add({
+                            targets: part,
+                            x: part.x + 2,
+                            duration: 2000,
+                            yoyo: true,
+                            repeat: -1,
+                            ease: 'Sine.easeInOut'
+                        });
+                    });
+
+                    for (let i = 0; i < 50; i++) {
+                        this.time.delayedCall(i * 150, () => {
+                            const petal = this.add.text(
+                                Phaser.Math.Between(350, 750),
+                                Phaser.Math.Between(-100, 50),
+                                '🌸',
+                                { 
+                                    fontSize: Phaser.Math.Between(18, 26) + 'px',
+                                    padding: { top: 10, bottom: 10, left: 5, right: 5 }
+                                }
+                            ).setOrigin(0.5);
+
+                            this.tweens.add({
+                                targets: petal,
+                                y: 650,
+                                x: petal.x + Phaser.Math.Between(-150, 150),
+                                rotation: Phaser.Math.Between(-2, 2),
+                                alpha: 0.7,
+                                duration: Phaser.Math.Between(4000, 7000),
+                                repeat: -1,
+                                delay: Phaser.Math.Between(0, 3000)
+                            });
+                        });
+                    }
+
+                    const rachitGlow = this.add.circle(600, 430, 35, 0x4169e1, 0.3);
+                    this.tweens.add({
+                        targets: rachitGlow,
+                        scale: 1.2,
+                        alpha: 0.5,
+                        duration: 1000,
+                        yoyo: true,
+                        repeat: -1
+                    });
+
+                    this.rachit = this.add.circle(600, 430, 28, 0x4169e1);
+                    this.rachit.setStrokeStyle(3, 0xffffff);
+                    
+                    this.rachitLabel = this.add.text(600, 380, 'Rachit', {
+                        fontSize: '20px',
+                        fill: '#000',
+                        backgroundColor: '#fff',
+                        padding: { x: 10, y: 5 },
+                        stroke: '#4169e1',
+                        strokeThickness: 2
+                    }).setOrigin(0.5);
+                    
+                    const cake = this.add.text(600, 470, '🎂', { 
+                        fontSize: '40px',
+                        padding: { top: 15, bottom: 15, left: 12, right: 12 }
+                    }).setOrigin(0.5);
+                    
+                    this.tweens.add({
+                        targets: cake,
+                        scale: 1.1,
+                        duration: 800,
+                        yoyo: true,
+                        repeat: -1
+                    });
+
+                    const roshniGlow = this.add.circle(100, 430, 30, 0xff69b4, 0.3);
+                    this.roshni = this.add.circle(100, 430, 25, 0xff69b4);
+                    this.roshni.setStrokeStyle(3, 0xffffff);
+                    
+                    this.roshniLabel = this.add.text(100, 380, 'Roshni', {
+                        fontSize: '20px',
+                        fill: '#000',
+                        backgroundColor: '#fff',
+                        padding: { x: 10, y: 5 },
+                        stroke: '#ff69b4',
+                        strokeThickness: 2
+                    }).setOrigin(0.5);
+
+                    this.tweens.add({
+                        targets: [this.roshni, this.roshniLabel, roshniGlow],
+                        x: 480,
+                        duration: 3500,
+                        ease: 'Sine.easeInOut',
+                        onComplete: () => {
+                            this.startRachitDialogue(this.rachit, this.rachitLabel, 600, 430);
+                        }
+                    });
+
+                    this.add.text(400, 50, '🌸 Under the Cherry Blossom Tree 🌸', {
+                        fontSize: '32px',
+                        fill: '#fff',
+                        stroke: '#ff69b4',
+                        strokeThickness: 4,
+                        fontStyle: 'bold'
+                    }).setOrigin(0.5);
+
+                    this.cameras.main.fadeIn(1500, 0, 0, 0);
+                }
+
+                startRachitDialogue(rachitObj, rachitLabelObj, rachitX, rachitY) {
+                    const dialogues = [
+                        { speaker: 'Roshni', text: 'Hey Rachit! Is that you?' },
+                        { speaker: 'Rachit', text: 'Yeah, it\'s me! Happy Birthday! 🎉' },
+                        { speaker: 'Roshni', text: 'Thank you so much! This game is amazing!' },
+                        { speaker: 'Rachit', text: 'Yeah, I wanted to make your day special! 💖' },
+                        { speaker: 'Roshni', text: 'You definitely did! Best birthday ever!' },
+                        { speaker: 'Rachit', text: 'Wait... Let me make it even more special...' },
+                        { speaker: 'Rachit', text: 'Take a deep breath...' },
+                        { speaker: 'Rachit', text: 'No... no... wait... Sukuna? Is that you?!' }
+                    ];
+
+                    let currentDialogue = 0;
+                    let currentBubble = [];
+
+                    const showNextDialogue = () => {
+                        if (currentDialogue >= dialogues.length) {
+                            this.showSukunaEntrance(rachitObj, rachitLabelObj);
+                            return;
+                        }
+
+                        const dialogue = dialogues[currentDialogue];
+                        const isRoshni = dialogue.speaker === 'Roshni';
+                        
+                        const speakerX = isRoshni ? 480 : rachitX;
+                        const speakerY = isRoshni ? 430 : rachitY;
+
+                        currentBubble = this.createEngagingSpeechBubble(speakerX, speakerY, dialogue.text, dialogue.speaker);
+
+                        const spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+                        const spaceHandler = () => {
+                            currentBubble.forEach(obj => obj.destroy());
+                            currentDialogue++;
+                            spaceKey.off('down', spaceHandler);
+                            showNextDialogue();
+                        };
+                        spaceKey.on('down', spaceHandler);
+                    };
+
+                    showNextDialogue();
+                }
+
+                showSukunaEntrance(rachitObj, rachitLabelObj) {
+                    const sukunaGlow = this.add.circle(-50, 300, 40, 0xff0000, 0.5);
+                    this.sukuna = this.add.circle(-50, 300, 30, 0xff0000);
+                    this.sukuna.setStrokeStyle(4, 0x000000);
+                    
+                    this.sukunaLabel = this.add.text(-50, 250, 'Sukuna', {
+                        fontSize: '20px',
+                        fill: '#fff',
+                        backgroundColor: '#000',
+                        padding: { x: 10, y: 5 },
+                        stroke: '#ff0000',
+                        strokeThickness: 2
+                    }).setOrigin(0.5);
+
+                    this.tweens.add({
+                        targets: [this.sukuna, sukunaGlow, this.sukunaLabel],
+                        x: 200,
+                        duration: 1500,
+                        ease: 'Power2',
+                        onComplete: () => {
+                            this.fadeOutAndStartSukunaMusic();
+                            this.startSukunaConversation();
+                        }
+                    });
+                }
+
+                fadeOutAndStartSukunaMusic() {
+                    const romanticMusic = this.registry.get('romanticMusic');
+                    if (romanticMusic) {
+                        this.tweens.add({
+                            targets: romanticMusic,
+                            volume: 0,
+                            duration: 2000,
+                            onComplete: () => {
+                                romanticMusic.stop();
+                            }
+                        });
+                    }
+
+                    this.time.delayedCall(500, () => {
+                        try {
+                            if (this.cache.audio.exists('sukunaShrine')) {
+                                this.sukunaShrineMusic = this.sound.add('sukunaShrine', { loop: true, volume: 0.25 });
+                                this.sukunaShrineMusic.play();
+                                this.registry.set('sukunaShrineMusic', this.sukunaShrineMusic);
+                            }
+                        } catch(e) {
+                            console.warn('Sukuna Shrine music error:', e);
+                        }
+                    });
+                }
+
+                startSukunaConversation() {
+                    const sukunaDialogues = [
+                        { speaker: 'Sukuna', text: 'Oi oi oi Roshni' },
+                        { speaker: 'Sukuna', text: 'Looks like it\'s your Birthday haa' },
+                        { speaker: 'Roshni', text: '(scared) Yes but... what are you doing here?' },
+                        { speaker: 'Rachit', text: 'OI Sukuna! Why are you here?\nAre you here to ruin the celebration?' },
+                        { speaker: 'Sukuna', text: 'Hold your horses kid!\nI am just here to wish her, got me?' },
+                        { speaker: 'Both', text: 'WHATT??' },
+                        { speaker: 'Rachit & Roshni', text: 'Th..Th..Thanks' },
+                        { speaker: 'Sukuna', text: 'Hope you can handle the pressure of my Domain Expansion' }
+                    ];
+
+                    let currentDialogue = 0;
+                    let currentBubble = [];
+
+                    const showNextSukunaDialogue = () => {
+                        if (currentDialogue >= sukunaDialogues.length) {
+                            this.cameras.main.fade(1000, 0, 0, 0);
+                            this.time.delayedCall(1000, () => {
+                                this.scene.start('SukunaScene');
+                            });
+                            return;
+                        }
+
+                        const dialogue = sukunaDialogues[currentDialogue];
+                        currentBubble = this.createEngagingSpeechBubble(400, 300, dialogue.text, dialogue.speaker);
+
+                        const spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+                        const spaceHandler = () => {
+                            currentBubble.forEach(obj => obj.destroy());
+                            currentDialogue++;
+                            spaceKey.off('down', spaceHandler);
+                            showNextSukunaDialogue();
+                        };
+                        spaceKey.on('down', spaceHandler);
+                    };
+
+                    showNextSukunaDialogue();
+                }
+
+                createEngagingSpeechBubble(x, y, text, speaker) {
+                    let bubbleColor, speakerDisplay;
+                    
+                    if (speaker === 'Sukuna') {
+                        bubbleColor = 0xff0000;
+                        speakerDisplay = 'Sukuna 👹';
+                    } else if (speaker === 'Rachit') {
+                        bubbleColor = 0x4169e1;
+                        speakerDisplay = 'Rachit 😊';
+                    } else if (speaker === 'Roshni') {
+                        bubbleColor = 0xff69b4;
+                        speakerDisplay = 'Roshni 💖';
+                    } else if (speaker === 'Both' || speaker === 'Rachit & Roshni') {
+                        bubbleColor = 0x9C27B0;
+                        speakerDisplay = 'Rachit & Roshni 😲';
+                    }
+                    
+                    const overlay = this.add.rectangle(400, 300, 800, 600, 0x000000, 0.4);
+                    overlay.setDepth(200);
+
+                    const bubbleBox = this.add.rectangle(400, 150, 650, 140, bubbleColor, 1);
+                    bubbleBox.setStrokeStyle(5, 0xffffff);
+                    bubbleBox.setDepth(201);
+
+                    const speakerName = this.add.text(400, 100, speakerDisplay, {
+                        fontSize: '24px',
+                        fill: '#ffeb3b',
+                        fontStyle: 'bold',
+                        stroke: '#000',
+                        strokeThickness: 3
+                    }).setOrigin(0.5).setDepth(202);
+
+                    const dialogueText = this.add.text(400, 150, text, {
+                        fontSize: '19px',
+                        fill: '#fff',
+                        fontStyle: 'bold',
+                        wordWrap: { width: 600 },
+                        align: 'center'
+                    }).setOrigin(0.5).setDepth(202);
+
+                    const continuePrompt = this.add.text(400, 205, '[Press SPACE to continue]', {
+                        fontSize: '16px',
+                        fill: '#ffeb3b',
+                        fontStyle: 'bold'
+                    }).setOrigin(0.5).setDepth(202);
+
+                    this.tweens.add({
+                        targets: continuePrompt,
+                        alpha: 0.4,
+                        scale: 0.95,
+                        duration: 700,
+                        yoyo: true,
+                        repeat: -1,
+                        ease: 'Sine.easeInOut'
+                    });
+
+                    [bubbleBox, speakerName, dialogueText, continuePrompt].forEach(obj => {
+                        obj.setAlpha(0);
+                        this.tweens.add({
+                            targets: obj,
+                            alpha: 1,
+                            duration: 300,
+                            ease: 'Power2'
+                        });
+                    });
+
+                    return [overlay, bubbleBox, speakerName, dialogueText, continuePrompt];
+                }
+            }
+
+            class SukunaScene extends Phaser.Scene {
+                constructor() {
+                    super({ key: 'SukunaScene' });
+                }
+
+                create() {
+                    this.cameras.main.setBackgroundColor('#000000');
+
+                    const sukunaShrineMusic = this.registry.get('sukunaShrineMusic');
+                    if (sukunaShrineMusic) {
+                        this.tweens.add({
+                            targets: sukunaShrineMusic,
+                            volume: 0.15,
+                            duration: 1000,
+                            ease: 'Linear'
+                        });
+                    }
+
+                    try {
+                        if (this.cache.audio.exists('sukuna')) {
+                            this.sukunaSound = this.sound.add('sukuna', { volume: 0.85 });
+                            this.sukunaSound.play();
+                        }
+                    } catch(e) {
+                        console.warn('Sukuna sound error:', e);
+                    }
+
+                    if (this.textures.exists('sukunaImg')) {
+                        const sukunaImg = this.add.image(400, 300, 'sukunaImg');
+                        
+                        const maxWidth = 750;
+                        const maxHeight = 550;
+                        
+                        const scaleX = maxWidth / sukunaImg.width;
+                        const scaleY = maxHeight / sukunaImg.height;
+                        const scale = Math.min(scaleX, scaleY);
+                        
+                        sukunaImg.setOrigin(0.5, 0.5);
+                        sukunaImg.setScale(scale);
+                        sukunaImg.setAlpha(0);
+
+                        this.tweens.add({
+                            targets: sukunaImg,
+                            alpha: 1,
+                            duration: 500,
+                            ease: 'Linear'
+                        });
+                    }
+
+                    this.time.delayedCall(5000, () => {
+                        this.cameras.main.fade(1000, 0, 0, 0);
+                        this.time.delayedCall(1000, () => {
+                            this.scene.start('VideoScene');
+                        });
+                    });
+                }
+            }
+
+            class VideoScene extends Phaser.Scene {
+                constructor() {
+                    super({ key: 'VideoScene' });
+                }
+
+                create() {
+                    this.cameras.main.setBackgroundColor('#000000');
+                    this.cameras.main.fadeIn(1000, 0, 0, 0);
+                    
+                    const sukunaShrineMusic = this.registry.get('sukunaShrineMusic');
+                    if (sukunaShrineMusic) {
+                        this.tweens.add({
+                            targets: sukunaShrineMusic,
+                            volume: 0,
+                            duration: 3000,
+                            ease: 'Linear',
+                            onComplete: () => {
+                                sukunaShrineMusic.stop();
+                            }
+                        });
+                    }
+                    
+                    if (this.cache.video.exists('birthdayVideo')) {
+                        const video = this.add.video(400, 300, 'birthdayVideo');
+                        video.setOrigin(0.5, 0.5);
+                        
+                        video.on('created', () => {
+                            const videoWidth = video.video.videoWidth;
+                            const videoHeight = video.video.videoHeight;
+                            
+                            if (videoWidth && videoHeight) {
+                                const scaleX = 800 / videoWidth;
+                                const scaleY = 600 / videoHeight;
+                                const scale = Math.min(scaleX, scaleY);
+                                
+                                video.setScale(scale);
+                            }
+                        });
+                        
+                        video.play();
+                        
+                        video.on('complete', () => {
+                            this.cameras.main.fade(1500, 0, 0, 0);
+                            this.time.delayedCall(1500, () => {
+                                this.scene.start('GojoButtonScene');
+                            });
+                        });
+                    } else {
+                        console.warn('Video not found, skipping to Gojo button scene');
+                        this.time.delayedCall(2000, () => {
+                            this.scene.start('GojoButtonScene');
+                        });
+                    }
+                }
+            }
+
+            class GojoButtonScene extends Phaser.Scene {
+                constructor() {
+                    super({ key: 'GojoButtonScene' });
+                }
+
+                create() {
+                    const gradient = this.add.graphics();
+                    gradient.fillGradientStyle(0x1a1a2e, 0x1a1a2e, 0x0f0f1e, 0x0f0f1e, 1);
+                    gradient.fillRect(0, 0, 800, 600);
+
+                    this.cameras.main.fadeIn(1500, 0, 0, 0);
+
+                    for (let i = 0; i < 30; i++) {
+                        this.time.delayedCall(i * 200, () => {
+                            const sparkle = this.add.text(
+                                Phaser.Math.Between(50, 750),
+                                Phaser.Math.Between(50, 550),
+                                '✨',
+                                { fontSize: '24px' }
+                            ).setOrigin(0.5).setAlpha(0);
+
+                            this.tweens.add({
+                                targets: sparkle,
+                                alpha: 0.8,
+                                scale: 1.5,
+                                duration: 2000,
+                                yoyo: true,
+                                repeat: -1,
+                                ease: 'Sine.easeInOut'
+                            });
+                        });
+                    }
+
+                    const title = this.add.text(400, 180, '🎊 One More Surprise! 🎊', {
+                        fontSize: '42px',
+                        fill: '#ffeb3b',
+                        fontStyle: 'bold',
+                        stroke: '#ff69b4',
+                        strokeThickness: 4
+                    }).setOrigin(0.5).setAlpha(0);
+
+                    this.tweens.add({
+                        targets: title,
+                        alpha: 1,
+                        y: 160,
+                        duration: 1500,
+                        ease: 'Elastic.easeOut'
+                    });
+
+                    const subtitle = this.add.text(400, 240, 'Gojo Sensei has something special for you!', {
+                        fontSize: '22px',
+                        fill: '#fff',
+                        stroke: '#000',
+                        strokeThickness: 2
+                    }).setOrigin(0.5).setAlpha(0);
+
+                    this.tweens.add({
+                        targets: subtitle,
+                        alpha: 1,
+                        duration: 1500,
+                        delay: 800
+                    });
+
+                    const buttonBg = this.add.rectangle(400, 380, 420, 90, 0x6a0dad, 1).setInteractive();
+                    buttonBg.setStrokeStyle(5, 0xffffff);
+                    buttonBg.setAlpha(0);
+
+                    const buttonText = this.add.text(400, 380, '💃 TAP TO DANCE 💃', {
+                        fontSize: '32px',
+                        fill: '#ffffff',
+                        fontStyle: 'bold'
+                    }).setOrigin(0.5).setInteractive().setAlpha(0);
+
+                    const buttonGlow = this.add.rectangle(400, 380, 440, 110, 0x9d4edd, 0.3);
+                    buttonGlow.setAlpha(0);
+
+                    this.tweens.add({
+                        targets: [buttonBg, buttonText, buttonGlow],
+                        alpha: 1,
+                        duration: 1500,
+                        delay: 1500,
+                        ease: 'Back.easeOut'
+                    });
+
+                    this.tweens.add({
+                        targets: [buttonBg, buttonText],
+                        scale: 1.05,
+                        duration: 800,
+                        yoyo: true,
+                        repeat: -1,
+                        ease: 'Sine.easeInOut'
+                    });
+
+                    this.tweens.add({
+                        targets: buttonGlow,
+                        scale: 1.15,
+                        alpha: 0.5,
+                        duration: 1000,
+                        yoyo: true,
+                        repeat: -1,
+                        ease: 'Sine.easeInOut'
+                    });
+
+                    buttonBg.on('pointerover', () => {
+                        this.tweens.add({
+                            targets: [buttonBg, buttonText],
+                            scale: 1.15,
+                            duration: 300
+                        });
+                    });
+
+                    buttonBg.on('pointerout', () => {
+                        this.tweens.add({
+                            targets: [buttonBg, buttonText],
+                            scale: 1,
+                            duration: 300
+                        });
+                    });
+
+                    const startGojoDance = () => {
+                        this.cameras.main.flash(500, 138, 43, 226);
+                        this.cameras.main.fadeOut(1000, 0, 0, 0);
+                        
+                        this.time.delayedCall(1000, () => {
+                            this.scene.start('GojoScene');
+                        });
+                    };
+
+                    buttonBg.on('pointerdown', startGojoDance);
+                    buttonText.on('pointerdown', startGojoDance);
+                }
+            }
+
+            class GojoScene extends Phaser.Scene {
+                constructor() {
+                    super({ key: 'GojoScene' });
+                }
+
+                create() {
+                    this.cameras.main.setBackgroundColor('#000000');
+                    this.cameras.main.fadeIn(1000, 0, 0, 0);
+
+                    this.scene.launch('FinaleScene');
+                    
+                    this.time.delayedCall(5000, () => {
+                        const purpleOverlay = this.add.rectangle(400, 300, 800, 600, 0x6a0dad, 0);
+                        purpleOverlay.setDepth(1000);
+
+                        this.tweens.add({
+                            targets: purpleOverlay,
+                            alpha: 0.4,
+                            duration: 1000,
+                            ease: 'Sine.easeInOut'
+                        });
+
+                        this.time.delayedCall(500, () => {
+                            this.showGojoGif();
+                        });
+
+                        this.time.delayedCall(20000, () => {
+                            const gojoOverlay = document.getElementById('gojo-overlay');
+                            if (gojoOverlay) {
+                                gojoOverlay.style.transition = 'opacity 3s ease-out';
+                                gojoOverlay.style.opacity = '0';
+                            }
+
+                            this.cameras.main.fadeOut(3000, 0, 0, 0);
+                            
+                            this.time.delayedCall(3000, () => {
+                                if (gojoOverlay) {
+                                    gojoOverlay.remove();
+                                }
+                                
+                                this.scene.start('CreditsScene');
+                            });
+                        });
+                    });
+                }
+
+                showGojoGif() {
+                    const gojoOverlay = document.createElement('div');
+                    gojoOverlay.id = 'gojo-overlay';
+                    gojoOverlay.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 10000;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background: radial-gradient(circle, rgba(106, 13, 173, 0.6) 0%, rgba(0, 0, 0, 0.8) 100%);
+                        animation: purpleGlow 2s ease-in-out infinite;
+                        opacity: 1;
+                    `;
+
+                    const gojoGif = document.createElement('img');
+                    gojoGif.src = 'assets/gifs/gojo_dance.gif';
+                    gojoGif.style.cssText = `
+                        max-width: 70%;
+                        max-height: 70%;
+                        border-radius: 20px;
+                        box-shadow: 0 0 50px rgba(138, 43, 226, 0.8);
+                        opacity: 0;
+                        animation: fadeInGojo 1s forwards, floatGojo 3s ease-in-out infinite;
+                    `;
+
+                    const title = document.createElement('div');
+                    title.textContent = '💜 GOJO SENSEI DANCING FOR YOU! 💜';
+                    title.style.cssText = `
+                        position: absolute;
+                        top: 50px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        font-size: 36px;
+                        font-weight: bold;
+                        color: #fff;
+                        text-shadow: 0 0 20px rgba(138, 43, 226, 1);
+                        animation: pulse 1.5s ease-in-out infinite;
+                    `;
+
+                    gojoOverlay.appendChild(gojoGif);
+                    gojoOverlay.appendChild(title);
+                    document.body.appendChild(gojoOverlay);
+
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        @keyframes purpleGlow {
+                            0%, 100% { background: radial-gradient(circle, rgba(106, 13, 173, 0.6) 0%, rgba(0, 0, 0, 0.8) 100%); }
+                            50% { background: radial-gradient(circle, rgba(138, 43, 226, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%); }
+                        }
+                        @keyframes fadeInGojo {
+                            to { opacity: 1; }
+                        }
+                        @keyframes floatGojo {
+                            0%, 100% { transform: translateY(0px); }
+                            50% { transform: translateY(-20px); }
+                        }
+                        @keyframes pulse {
+                            0%, 100% { transform: translateX(-50%) scale(1); }
+                            50% { transform: translateX(-50%) scale(1.1); }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+            }
+
+            class FinaleScene extends Phaser.Scene {
+                constructor() {
+                    super({ key: 'FinaleScene' });
+                }
+
+                create() {
+                    this.sound.stopAll();
+
+                    this.time.delayedCall(500, () => {
+                        try {
+                            if (this.cache.audio.exists('birthdaySong')) {
+                                this.birthdayMusic = this.sound.add('birthdaySong', { 
+                                    loop: true, 
+                                    volume: 0.5 
+                                });
+                                this.birthdayMusic.play();
+                            }
+                        } catch(e) {
+                            console.error('Birthday song error:', e);
+                        }
+                    });
+
+                    this.cameras.main.setBackgroundColor('#000000');
+                    this.cameras.main.fadeIn(2500, 255, 192, 203);
+
+                    this.time.delayedCall(2500, () => {
+                        const gradient = this.add.graphics();
+                        gradient.fillGradientStyle(0xFFEBF0, 0xFFEBF0, 0xFFD0E0, 0xFFD0E0, 1);
+                        gradient.fillRect(0, 0, 800, 600);
+                        
+                        this.showGrandCelebration();
+                    });
+                }
+
+                showGrandCelebration() {
+                    const mainMessage = this.add.text(400, 130, '🎉 HAPPY BIRTHDAY 🎉', {
+                        fontSize: '52px',
+                        fill: '#ff1493',
+                        fontStyle: 'bold',
+                        stroke: '#fff',
+                        strokeThickness: 8,
+                        padding: { top: 20, bottom: 20, left: 15, right: 15 }
+                    }).setOrigin(0.5).setAlpha(0);
+
+                    const nameMessage = this.add.text(400, 200, 'ROSHNIIIIIII!!!', {
+                        fontSize: '64px',
+                        fill: '#ff69b4',
+                        fontStyle: 'bold',
+                        stroke: '#fff',
+                        strokeThickness: 8,
+                        padding: { top: 20, bottom: 20, left: 15, right: 15 }
+                    }).setOrigin(0.5).setAlpha(0);
+
+                    this.tweens.add({
+                        targets: mainMessage,
+                        alpha: 1,
+                        scale: 1.15,
+                        duration: 1200,
+                        ease: 'Bounce.easeOut'
+                    });
+
+                    this.tweens.add({
+                        targets: nameMessage,
+                        alpha: 1,
+                        scale: 1.1,
+                        duration: 1200,
+                        delay: 600,
+                        ease: 'Bounce.easeOut'
+                    });
+
+                    this.time.addEvent({
+                        delay: 500,
+                        callback: () => {
+                            const sparkle = this.add.text(
+Phaser.Math.Between(200, 600),
+                                Phaser.Math.Between(100, 220),
+                                '✨',
+                                { 
+                                    fontSize: '32px',
+                                    padding: { top: 12, bottom: 12, left: 10, right: 10 }
+                                }
+                            ).setOrigin(0.5);
+                            this.tweens.add({
+                                targets: sparkle,
+                                alpha: 0,
+                                scale: 2,
+                                duration: 1000,
+                                onComplete: () => sparkle.destroy()
+                            });
+                        },
+                        loop: true
+                    });
+
+                    const friends = [
+                        { name: "Jawaid", x: 90, y: 440, emoji: '😊' },
+                        { name: "Kamida", x: 200, y: 460, emoji: '😄' },
+                        { name: "Killua", x: 310, y: 440, emoji: '😎' },
+                        { name: "Nick", x: 420, y: 460, emoji: '🥰' },
+                        { name: "Shield", x: 530, y: 440, emoji: '🤩' },
+                        { name: "Tarun Bhaiya", x: 640, y: 460, emoji: '🧑' },
+                        { name: "Didi", x: 250, y: 360, emoji: '👩' },
+                        { name: "Rachit", x: 550, y: 360, emoji: '😊' }
+                    ];
+
+                    this.time.delayedCall(1800, () => {
+                        friends.forEach((friend, index) => {
+                            const glow = this.add.circle(friend.x, friend.y, 28, 0xff69b4, 0.3);
+                            
+                            const character = this.add.text(friend.x, friend.y, friend.emoji, {
+                                fontSize: '44px',
+                                padding: { top: 15, bottom: 15, left: 12, right: 12 }
+                            }).setOrigin(0.5);
+                            
+                            const label = this.add.text(friend.x, friend.y - 55, friend.name, {
+                                fontSize: '16px',
+                                fill: '#000',
+                                backgroundColor: '#fff',
+                                padding: { x: 8, y: 4 },
+                                stroke: '#ff69b4',
+                                strokeThickness: 2,
+                                fontStyle: 'bold'
+                            }).setOrigin(0.5);
+
+                            [glow, character, label].forEach(obj => obj.setAlpha(0));
+
+                            this.tweens.add({
+                                targets: [glow, character, label],
+                                alpha: 1,
+                                duration: 1000,
+                                delay: index * 250,
+                                ease: 'Elastic.easeOut'
+                            });
+
+                            this.tweens.add({
+                                targets: [glow, character, label],
+                                y: friend.y - 8,
+                                duration: 2000,
+                                yoyo: true,
+                                repeat: -1,
+                                delay: index * 250,
+                                ease: 'Sine.easeInOut'
+                            });
+                        });
+                    });
+
+                    this.createSpectacularConfetti();
+
+                    this.time.delayedCall(3500, () => {
+                        const finalMsg = this.add.text(400, 540, '🎂 Wishing You a Year Full of Joy & Success! 💫', {
+                            fontSize: '24px',
+                            fill: '#ff1493',
+                            backgroundColor: '#fff',
+                            padding: { x: 18, y: 10 },
+                            stroke: '#000',
+                            strokeThickness: 3,
+                            fontStyle: 'bold'
+                        }).setOrigin(0.5).setAlpha(0);
+
+                        this.tweens.add({
+                            targets: finalMsg,
+                            alpha: 1,
+                            scale: 1.05,
+                            duration: 2000,
+                            ease: 'Elastic.easeOut'
+                        });
+
+                        this.tweens.add({
+                            targets: finalMsg,
+                            scale: 1.08,
+                            duration: 1000,
+                            delay: 2000,
+                            yoyo: true,
+                            repeat: -1
+                        });
+                    });
+                }
+
+                createSpectacularConfetti() {
+                    const colors = ['🎊', '🎉', '✨', '💖', '🌟', '🎈', '🎁', '💫', '⭐'];
+                    
+                    for (let i = 0; i < 80; i++) {
+                        this.time.delayedCall(i * 120, () => {
+                            const confetti = this.add.text(
+                                Phaser.Math.Between(0, 800),
+                                -30,
+                                Phaser.Utils.Array.GetRandom(colors),
+                                { 
+                                    fontSize: Phaser.Math.Between(24, 36) + 'px',
+                                    padding: { top: 12, bottom: 12, left: 10, right: 10 }
+                                }
+                            ).setOrigin(0.5);
+
+                            this.tweens.add({
+                                targets: confetti,
+                                y: 650,
+                                x: confetti.x + Phaser.Math.Between(-150, 150),
+                                rotation: Phaser.Math.Between(-4, 4),
+                                alpha: 0.8,
+                                duration: Phaser.Math.Between(2500, 4500),
+                                onComplete: () => confetti.destroy()
+                            });
+                        });
+                    }
+
+                    this.time.delayedCall(6000, () => this.createSpectacularConfetti());
+                }
+            }
+
+            // ✅ CREDITS SCENE WITH CONTINUOUS FLOW & bg_reel IMAGES
+ // ✅ UPDATED CREDITS SCENE WITH WORD WRAP FIX
+class CreditsScene extends Phaser.Scene {
+    constructor() {
+        super({ key: 'CreditsScene' });
+    }
+
+    create() {
+        this.cameras.main.setBackgroundColor('#000000');
+        this.cameras.main.fadeIn(1500, 0, 0, 0);
+
+        const credits = [
+            { name: 'Ana', message: '🥰 Happy Birthday Cutie 🥰', image: 'assets/images/bg_reel_1.jpg' },
+            { name: 'Axel', message: 'Wish you a very very very happy birthday romsunnypuff 🎉 May your day be as fabulous as your cosplays 💃👸 and your streams be as lit as always 🔥💖!', image: 'assets/images/bg_reel_2.jpg' },
+            { name: 'Kamida', message: '😼 Happy Birthday Roshnimon 😼', image: 'assets/images/bg_reel_3.jpg' },
+            { name: 'Shinchiro', message: '😉 Happy Birthday Uwutsayn 😉', image: 'assets/images/bg_reel_4.jpg' },
+            { name: 'Mugiwara', message: '😁 Happy Birthday little angel 😁', image: 'assets/images/bg_reel_5.jpg' },
+            { name: 'Parsha', message: '😘 Happy Birthday Darling, live you life like a queeenn slaayyy bitch! 😘', image: 'assets/images/bg_reel_6.jpg' },
+            { name: 'Didi', message: '😏 Happy Birthday Chhotiiii 😏', image: 'assets/images/bg_reel_7.jpg' },
+            { name: 'Rachit', message: '☺️ Happy Birthday Romsunny, Hope you get rich asf this year and maay teri jaib kaatlu ☺️', image: 'assets/images/bg_reel_8.jpg' },
+            { name: '', message: '✨✨✨', image: null },
+            { name: 'Special Thanks', message: 'To Your Mom & Dad', image: 'assets/images/bg_reel_9.jpg' },
+            { name: '', message: 'for bringing you into existence', image: null },
+            { name: '', message: '🎂🎉🎊', image: null },
+            { name: '', message: '', image: null },
+            { name: 'Created With Love', message: 'By Rachit', image: 'assets/images/bg_reel_10.jpg' },
+            { name: '', message: '💖', image: null }
+        ];
+
+        const imageOverlay = document.createElement('div');
+        imageOverlay.id = 'credits-image-overlay';
+        imageOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+        `;
+        document.body.appendChild(imageOverlay);
+
+        const creditsContainer = this.add.container(400, 700);
+        
+        let yOffset = 0;
+        
+        credits.forEach((credit, index) => {
+            // ✅ NAME TEXT - Higher up
+            if (credit.name) {
+                const nameText = this.add.text(0, yOffset, credit.name, {
+                    fontSize: '36px',
+                    fill: '#ffeb3b',
+                    fontStyle: 'bold',
+                    align: 'center'
+                }).setOrigin(0.5);
+                creditsContainer.add(nameText);
+            }
+
+            // ✅ MESSAGE TEXT WITH PROPER GAP
+            const messageText = this.add.text(0, yOffset + 60, credit.message, {
+                fontSize: '18px',           
+                fill: '#ffffff',
+                align: 'center',
+                wordWrap: { width: 500 },   // ✅ Wider for better flow
+                lineSpacing: 6
+            }).setOrigin(0.5);
+            creditsContainer.add(messageText);
+
+            // ✅ FIXED SPACING - 250px between each credit block
+            yOffset += 250;
+
+            if (credit.image) {
+                const leftImg = document.createElement('img');
+                leftImg.src = credit.image;
+                leftImg.style.cssText = `
+                    position: absolute;
+                    width: 120px;
+                    height: 120px;
+                    object-fit: cover;
+                    border-radius: 10px;
+                    box-shadow: 0 0 15px rgba(255, 235, 59, 0.5);
+                    border: 2px solid #ffeb3b;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                `;
+                leftImg.setAttribute('data-credit-index', index);
+                leftImg.setAttribute('data-side', 'left');
+                leftImg.onerror = () => { leftImg.style.display = 'none'; };
+                imageOverlay.appendChild(leftImg);
+
+                const rightImg = document.createElement('img');
+                rightImg.src = credit.image;
+                rightImg.style.cssText = `
+                    position: absolute;
+                    width: 120px;
+                    height: 120px;
+                    object-fit: cover;
+                    border-radius: 10px;
+                    box-shadow: 0 0 15px rgba(255, 235, 59, 0.5);
+                    border: 2px solid #ffeb3b;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                `;
+                rightImg.setAttribute('data-credit-index', index);
+                rightImg.setAttribute('data-side', 'right');
+                rightImg.onerror = () => { rightImg.style.display = 'none'; };
+                imageOverlay.appendChild(rightImg);
+            }
+        });
+
+        const scrollDuration = credits.length * 3500;
+        
+        this.tweens.add({
+            targets: creditsContainer,
+            y: -yOffset - 200,
+            duration: scrollDuration,
+            ease: 'Linear',
+            onComplete: () => {
+                this.showFinalMessageContinuous(imageOverlay);
+            }
+        });
+
+        // ✅ SIMPLIFIED IMAGE POSITIONING
+        this.time.addEvent({
+            delay: 16,
+            callback: () => {
+                const containerY = creditsContainer.y;
+                const imageElements = imageOverlay.querySelectorAll('img');
+                
+                imageElements.forEach((img) => {
+                    const creditIndex = parseInt(img.getAttribute('data-credit-index'));
+                    const side = img.getAttribute('data-side');
+                    
+                    // ✅ SIMPLE CALCULATION: 250px per credit
+                    const imgY = containerY + (creditIndex * 250) + 40;
+                    
+                    if (side === 'left') {
+                        img.style.left = '80px';
+                    } else {
+                        img.style.left = 'calc(100% - 200px)';
+                    }
+                    img.style.top = imgY + 'px';
+                    
+                    if (imgY > 50 && imgY < 550) {
+                        img.style.opacity = '0.95';
+                    } else if (imgY >= -50 && imgY <= 650) {
+                        img.style.opacity = '0.5';
+                    } else {
+                        img.style.opacity = '0';
+                    }
+                });
+            },
+            loop: true
+        });
+
+        this.time.addEvent({
+            delay: 400,
+            callback: () => {
+                const sparkle = this.add.text(
+                    Phaser.Math.Between(100, 700),
+                    Phaser.Math.Between(100, 500),
+                    '✨',
+                    { fontSize: '28px' }
+                ).setOrigin(0.5);
+                
+                this.tweens.add({
+                    targets: sparkle,
+                    alpha: 0,
+                    scale: 2,
+                    duration: 1500,
+                    onComplete: () => sparkle.destroy()
+                });
+            },
+            loop: true
+        });
+    }
+
+    showFinalMessageContinuous(imageOverlay) {
+        const imageElements = imageOverlay.querySelectorAll('img');
+        imageElements.forEach(img => {
+            img.style.transition = 'opacity 2s ease-out';
+            img.style.opacity = '0';
+        });
+
+        this.time.delayedCall(2000, () => {
+            if (imageOverlay) {
+                imageOverlay.remove();
+            }
+        });
+
+        const finalText = this.add.text(400, 300, '🎊 THE END 🎊\n\nThank You For Playing!', {
+            fontSize: '48px',
+            fill: '#ff69b4',
+            fontStyle: 'bold',
+            align: 'center',
+            stroke: '#fff',
+            strokeThickness: 6
+        }).setOrigin(0.5).setAlpha(0).setDepth(1000);
+
+        this.tweens.add({
+            targets: finalText,
+            alpha: 1,
+            scale: 1.1,
+            duration: 2000,
+            ease: 'Elastic.easeOut'
+        });
+    }
+}
+
+
+
+
+            const config = {
+                type: Phaser.AUTO,
+                width: 800,
+                height: 600,
+                parent: 'game-container',
+                backgroundColor: '#87CEEB',
+                physics: {
+                    default: 'arcade',
+                    arcade: {
+                        gravity: { y: 0 },
+                        debug: false
+                    }
+                },
+                scene: [StartScene, MainGameScene, CherryBlossomScene, SukunaScene, VideoScene, GojoButtonScene, GojoScene, FinaleScene, CreditsScene]
+            };
+
+            const game = new Phaser.Game(config);
+        });
+    </script>
+</body>
+</html>
